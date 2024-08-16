@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:8888";
+const url = "http://nadescrib.com:8888";
 
 export default {
   mapData: (params) => {
