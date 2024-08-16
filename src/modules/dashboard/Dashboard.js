@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
@@ -6,13 +6,22 @@ import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 
 import "./Dashboard.scss";
 
+import Global from "../../util/global";
 import Topbar from "../../components/topbar/Topbar";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Footer from "../../components/footer/Footer";
-import Global from "../../util/global";
 
 export default function Dashboard() {
-  const { apiKey, setApiKey } = useContext(Global);
+  const { userState, setUserState } = useContext(Global);
+
+  const handleOnChange = (event) => {
+    const { name, value } = event.target;
+    setUserState((userState) => ({ ...userState, [name]: value }));
+  };
+
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(userState));
+  }, [userState]);
 
   return (
     <React.Fragment>
@@ -23,26 +32,46 @@ export default function Dashboard() {
       <Sidebar />
       <Box component={"section"} id="dashboard" className="panel">
         <Box className="dashboard-holder">
-          <Typography className="section-title">API Key</Typography>
+          <Typography className="section-title">User Details</Typography>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography>
-                Generate your API key, simply click on the button below and paste it on the input.
-              </Typography>
-              <Typography sx={{ color: "red" }}>
-                Please make sure you are logged in to your gather account
+                Please make sure you are logged in to your gather account, and fill in the details
+                below
               </Typography>
             </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                label="Paste your API key here"
+                label="API key"
                 size="small"
-                value={apiKey}
-                onChange={(event) => setApiKey(event.target.value)}
+                name="apiKey"
+                value={userState.apiKey}
+                onChange={(event) => handleOnChange(event)}
               />
             </Grid>
             <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                label="Space ID"
+                size="small"
+                name="spaceId"
+                value={userState.spaceId}
+                onChange={(event) => handleOnChange(event)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                label="Map name"
+                size="small"
+                name="mapName"
+                value={userState.mapName}
+                onChange={(event) => handleOnChange(event)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Typography>Generate your API key using the button below</Typography>
               <Button
                 variant="contained"
                 component={Link}

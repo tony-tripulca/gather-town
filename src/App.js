@@ -21,16 +21,20 @@ export default function App() {
     severity: "succes",
   });
 
-  const [apiKey, setApiKey] = useState("");
   const [navActive, setNavActive] = useState(true);
+  const [userState, setUserState] = useState({
+    apiKey: "",
+    spaceId: "",
+    mapName: "",
+  });
 
   const globals = {
     snackbar,
     setSnackbar,
-    apiKey,
-    setApiKey,
     navActive,
     setNavActive,
+    userState,
+    setUserState,
   };
 
   return (

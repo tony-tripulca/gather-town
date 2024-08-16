@@ -1,7 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 
-import { Box, Button, Grid, TextField, Typography } from "@mui/material";
+import { Box, Grid, Paper, Typography } from "@mui/material";
 
 import "./MapData.scss";
 
@@ -12,27 +12,28 @@ import Global from "../../util/global";
 import GatherTownService from "../../services/GatherTownService";
 
 export default function MapData() {
-  const { apiKey } = useContext(Global);
+  const { userState } = useContext(Global);
 
-  const [mapData, setMapData] = useState({
-    spaceId: "",
-    mapName: "",
-  });
+  const [mapData, setMapData] = useState([]);
 
-  const handleOnChange = (event) => {
-    const { name, value } = event.target;
-    setMapData((mapData) => ({ ...mapData, [name]: value }));
-  };
+  const handleGetMaps = useCallback(() => {
+    console.log(userState);
+    if (!Object.values(userState).includes("")) {
+      GatherTownService.mapData({
+        apiKey: userState.apiKey,
+        spaceId: userState.spaceId,
+        mapName: userState.mapName,
+      })
+        .then((response) => {
+          setMapData(response.data);
+        })
+        .catch((error) => console.error(error));
+    }
+  }, [userState]);
 
-  const handleGetMaps = () => {
-    GatherTownService.mapData({
-      spaceId: mapData.spaceId,
-      mapName: mapData.mapName,
-      apiKey: apiKey,
-    })
-      .then((response) => console.log(response))
-      .catch((error) => console.error(error));
-  };
+  useEffect(() => {
+    handleGetMaps();
+  }, [handleGetMaps]);
 
   return (
     <React.Fragment>
@@ -41,35 +42,33 @@ export default function MapData() {
       </Helmet>
       <Topbar />
       <Sidebar />
-      <Box component={"section"} id="dashboard" className="panel">
-        <Box className="dashboard-holder">
+      <Box component={"section"} id="map-data" className="panel">
+        <Box className="map-data-holder">
           <Typography className="section-title">Map Data</Typography>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                label="Space ID"
-                size="small"
-                name="spaceId"
-                value={mapData.spaceId}
-                onChange={(event) => handleOnChange(event)}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                label="Map name"
-                size="small"
-                name="mapName"
-                value={mapData.mapName}
-                onChange={(event) => handleOnChange(event)}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Button variant="contained" onClick={() => handleGetMaps()}>
-                Get Map Data
-              </Button>
-            </Grid>
+            {mapData?.map((item, i) => (
+              <Grid item xs={12} key={i}>
+                <Paper elevation={4} className="card">
+                  <Box className="card-image">
+                    <Box component={"img"} src={item.backgroundImagePath} alt="background" />
+                  </Box>
+                  <Box className="card-content">
+                    <Typography className="title">Type</Typography>
+                    <Typography>{item.id}</Typography>
+                    <Typography className="title">Areas</Typography>
+                    <Typography>
+                      {item.areas && Object.keys(item.areas).map((item) => `${item}, `)}
+                    </Typography>
+                    <Typography className="title">Nooks</Typography>
+                    <Typography>
+                      {item.nooks && Object.keys(item.nooks)?.map((item) => `${item}, `)}
+                    </Typography>
+                    <Typography className="title">Updated At</Typography>
+                    <Typography>{item.updatedAt}</Typography>
+                  </Box>
+                </Paper>
+              </Grid>
+            ))}
           </Grid>
         </Box>
       </Box>

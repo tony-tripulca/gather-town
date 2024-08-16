@@ -1,0 +1,23 @@
+#map-data {
+  .map-data-holder {
+    .card {
+      display: flex;
+      padding: 16px;
+
+      &-image {
+        margin-right: 16px;
+
+        img {
+          width: 256px;
+        }
+      }
+
+      &-content {
+        .title {
+          margin-top: 8px;
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+}
