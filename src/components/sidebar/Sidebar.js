@@ -27,15 +27,15 @@ export default function Sidebar() {
               </Link>
             </MenuItem>
             <MenuItem>
-              <Link to="/create-space">
-                <Grid4x4Icon />
-                Create Space
-              </Link>
-            </MenuItem>
-            <MenuItem>
               <Link to="/map-data">
                 <MapIcon />
                 Map Data
+              </Link>
+            </MenuItem>
+            <MenuItem>
+              <Link to="/create-space">
+                <Grid4x4Icon />
+                Create Space
               </Link>
             </MenuItem>
             <MenuItem>

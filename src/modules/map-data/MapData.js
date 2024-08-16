@@ -45,31 +45,35 @@ export default function MapData() {
       <Box component={"section"} id="map-data" className="panel">
         <Box className="map-data-holder">
           <Typography className="section-title">Map Data</Typography>
-          <Grid container spacing={2}>
-            {mapData?.map((item, i) => (
-              <Grid item xs={12} key={i}>
-                <Paper elevation={4} className="card">
-                  <Box className="card-image">
-                    <Box component={"img"} src={item.backgroundImagePath} alt="background" />
-                  </Box>
-                  <Box className="card-content">
-                    <Typography className="title">Type</Typography>
-                    <Typography>{item.id}</Typography>
-                    <Typography className="title">Areas</Typography>
-                    <Typography>
-                      {item.areas && Object.keys(item.areas).map((item) => `${item}, `)}
-                    </Typography>
-                    <Typography className="title">Nooks</Typography>
-                    <Typography>
-                      {item.nooks && Object.keys(item.nooks)?.map((item) => `${item}, `)}
-                    </Typography>
-                    <Typography className="title">Updated At</Typography>
-                    <Typography>{item.updatedAt}</Typography>
-                  </Box>
-                </Paper>
-              </Grid>
-            ))}
-          </Grid>
+          {!mapData.length ? (
+            <Typography>Loading...</Typography>
+          ) : (
+            <Grid container spacing={2}>
+              {mapData?.map((item, i) => (
+                <Grid item xs={12} key={i}>
+                  <Paper elevation={4} className="card">
+                    <Box className="card-image">
+                      <Box component={"img"} src={item.backgroundImagePath} alt="background" />
+                    </Box>
+                    <Box className="card-content">
+                      <Typography className="title">Type</Typography>
+                      <Typography>{item.id}</Typography>
+                      <Typography className="title">Areas</Typography>
+                      <Typography>
+                        {item.areas && Object.keys(item.areas).map((item) => `${item}, `)}
+                      </Typography>
+                      <Typography className="title">Nooks</Typography>
+                      <Typography>
+                        {item.nooks && Object.keys(item.nooks)?.map((item) => `${item}, `)}
+                      </Typography>
+                      <Typography className="title">Updated At</Typography>
+                      <Typography>{item.updatedAt}</Typography>
+                    </Box>
+                  </Paper>
+                </Grid>
+              ))}
+            </Grid>
+          )}
         </Box>
       </Box>
       <Footer />

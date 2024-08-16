@@ -32,7 +32,7 @@ export default function Dashboard() {
       <Sidebar />
       <Box component={"section"} id="dashboard" className="panel">
         <Box className="dashboard-holder">
-          <Typography className="section-title">User Details</Typography>
+          <Typography className="section-title">Gather Account Details</Typography>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography>
@@ -48,8 +48,18 @@ export default function Dashboard() {
                 name="apiKey"
                 value={userState.apiKey}
                 onChange={(event) => handleOnChange(event)}
+                helperText="Generate your API key using the button, come back and paste the value here"
               />
+              <Button
+                variant="contained"
+                component={Link}
+                to="https://gather.town/apiKeys"
+                target="_blank"
+              >
+                Generate API Key
+              </Button>
             </Grid>
+            <Grid item xs={12}></Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -58,6 +68,7 @@ export default function Dashboard() {
                 name="spaceId"
                 value={userState.spaceId}
                 onChange={(event) => handleOnChange(event)}
+                helperText={`Space Id "UhxOWQKLkJhJkq5W" is found on your share link e.g. https://app.gather.town/app/UhxOWQKLkJhJkq5W/MyMap`}
               />
             </Grid>
             <Grid item xs={12}>
@@ -68,18 +79,8 @@ export default function Dashboard() {
                 name="mapName"
                 value={userState.mapName}
                 onChange={(event) => handleOnChange(event)}
+                helperText={`Map name "MyMap" is found on your share link e.g. https://app.gather.town/app/UhxOWQKLkJhJkq5W/MyMap`}
               />
-            </Grid>
-            <Grid item xs={12}>
-              <Typography>Generate your API key using the button below</Typography>
-              <Button
-                variant="contained"
-                component={Link}
-                to="https://gather.town/apiKeys"
-                target="_blank"
-              >
-                Generate API Key
-              </Button>
             </Grid>
           </Grid>
         </Box>
