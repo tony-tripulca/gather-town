@@ -1,0 +1,34 @@
+#topbar {
+  position: fixed;
+  z-index: 1100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  box-shadow: -5px -5px 10px rgba(0, 0, 0, 0.5);
+
+  .topbar-holder {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+
+    .brand-logo {
+      width: 72px;
+      padding-left: 16px;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  #topbar {
+    width: calc(100% - var(--aside));
+    left: var(--aside);
+
+    .topbar-holder {
+      .btn-menu {
+        display: none;
+      }
+    }
+  }
+}

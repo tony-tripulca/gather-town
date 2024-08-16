@@ -22,12 +22,15 @@ export default function App() {
   });
 
   const [apiKey, setApiKey] = useState("");
+  const [navActive, setNavActive] = useState(true);
 
   const globals = {
     snackbar,
     setSnackbar,
     apiKey,
     setApiKey,
+    navActive,
+    setNavActive,
   };
 
   return (

@@ -1,0 +1,24 @@
+#sidebar {
+  position: fixed;
+  z-index: 1200;
+  top: 0;
+  left: calc(var(--aside) * -1);
+  width: var(--aside);
+  height: 100%;
+  background-color: var(--indigo900);
+  transition: all 0.2s ease-in-out;
+
+  &.active {
+    left: 0;
+  }
+
+  .sidebar-holder {
+    height: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  #sidebar {
+    left: 0;
+  }
+}
