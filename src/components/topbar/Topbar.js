@@ -27,7 +27,7 @@ export default function Topbar() {
             className="status"
           ></Chip>
           <IconButton className="btn-menu" onClick={() => setNavActive(!navActive)}>
-            {navActive ? <MenuIcon /> : <MenuOpenIcon />}
+            {navActive ? <MenuOpenIcon /> : <MenuIcon />}
           </IconButton>
         </Container>
       </Box>

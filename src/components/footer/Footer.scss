@@ -2,9 +2,15 @@ footer {
   position: fixed;
   z-index: 1200;
   bottom: 0;
-  left: var(--aside);
+  left: 0;
 
   .MuiTypography-root {
     padding: 16px;
+  }
+}
+
+@media (min-width: 992px) {
+  footer {
+    left: var(--aside);
   }
 }
